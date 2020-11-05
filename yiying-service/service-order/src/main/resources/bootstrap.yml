@@ -3,7 +3,7 @@ server:
 
 nacos:
   server:
-    addr: 123.57.11.24:8848
+    addr: www.qitianfeng.com:8848
 spring:
   application:
     name: service-order
@@ -38,6 +38,13 @@ dubbo:
     port: 21886
   registry:
     #    id: dubbo-account-example-registry
-    address: nacos://123.57.11.24:8848
+    address: nacos://www.qitianfeng.com:8848
   cloud:
     subscribed-services: ""
+
+rocketmq:
+  nameServer: 119.29.174.186:9876
+  consumer:
+    group: demo-consumer-group
+
+

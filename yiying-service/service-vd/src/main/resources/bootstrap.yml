@@ -4,7 +4,7 @@ server:
 
 nacos:
   server:
-    addr: 123.57.11.24:8848
+    addr: www.qitianfeng.com:8848
 spring:
   application:
      name: service-vod
@@ -44,7 +44,7 @@ dubbo:
     name: dubbo
     port: 20891
   registry:
-    address: nacos://123.57.11.24:8848
+    address: nacos://www.qitianfeng.com:8848
   application:
     qos-port: 22310 #dubbo qos端口配置  命令行注入
   consumer:

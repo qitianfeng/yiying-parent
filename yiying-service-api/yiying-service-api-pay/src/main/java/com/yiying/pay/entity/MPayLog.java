@@ -1,13 +1,15 @@
 package com.yiying.pay.entity;
 
+import java.beans.Transient;
 import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -46,18 +48,27 @@ public class MPayLog implements Serializable {
     private BigDecimal totalFee;
 
     @ApiModelProperty(value = "交易状态")
-    private Integer tradeStatus;
+    private String tradeStatus;
 
     @ApiModelProperty(value = "完成支付时间")
     private Date payTime;
 
+    @TableField(exist = false)//：表示该属性不为数据库表字段，但又是必须使用的。
+    @ApiModelProperty(value = "座位信息")
+    private String seats;
+
+
+
     @ApiModelProperty(value = "逻辑删除")
-    private Boolean isDeleted;
+    @TableLogic
+    private Integer isDeleted;
 
     @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;
 
     @ApiModelProperty(value = "修改时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
 

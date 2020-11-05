@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface MMoviePlayHallService extends IService<MMoviePlayHall> {
 
+    //获取电影展厅的名称
+    MMoviePlayHall getPlayHall(String movieId);
 }

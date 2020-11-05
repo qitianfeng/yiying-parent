@@ -11,8 +11,8 @@ public class OrderExt {
     @ApiModelProperty(value = "订单号")
     private String orderNo;
 
-    @ApiModelProperty(value = "课程id")
-    private String courseId;
+    @ApiModelProperty(value = "电影id")
+    private String movieId;
 
     @ApiModelProperty(value = "会员id")
     private String memberId;

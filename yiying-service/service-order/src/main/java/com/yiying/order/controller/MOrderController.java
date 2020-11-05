@@ -2,6 +2,7 @@ package com.yiying.order.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.sun.javafx.collections.MappingChange;
 import com.yiying.common.JwtUtils;
 import com.yiying.common.Result;
 import com.yiying.order.entity.MOrder;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 
 /**
@@ -29,24 +31,52 @@ public class MOrderController {
     private MOrderService orderService;
 
 
-    @PostMapping("createMOrder/{movieId}")
-    public Result createMOrder(@PathVariable String movieId, HttpServletRequest request) {
+    @PostMapping("createOrder/{movieId}")
+    public Result createOrder(@PathVariable String movieId, HttpServletRequest request) {
 
         String jwtToken = JwtUtils.getMemberIdByJwtToken(request);
         if (StringUtils.isEmpty(jwtToken)) {
             return Result.error().message("请登录后再购买");
         }
         //根据课程id和用户id创建订单
-        String MOrderId = orderService.createOrder(movieId, jwtToken);
-        return Result.ok().data("MOrderId", MOrderId);
+        String orderId = orderService.createOrder(movieId, jwtToken);
+        return Result.ok().data("orderId", orderId);
     }
 
-    @GetMapping("getMOrderInfo/{orderId}")
-    public Result getMOrderInfo(@PathVariable String MOrderId) {
+
+    @PostMapping("createOrdersTicket/{movieId}")
+    public Result createOrdersTicket(@PathVariable String movieId, HttpServletRequest request) {
+
+        String jwtToken = JwtUtils.getMemberIdByJwtToken(request);
+        if (StringUtils.isEmpty(jwtToken)) {
+            return Result.error().message("请登录后再购买");
+        }
+        //根据课程id和用户id创建订单
+        String orderId = orderService.createOrdersTicket(movieId, jwtToken);
+        return Result.ok().data("orderId", orderId);
+    }
+
+
+
+    @GetMapping("getOrderInfo/{orderId}")
+    public Result getMOrderInfo(@PathVariable String orderId) {
         LambdaQueryWrapper<MOrder> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(MOrder::getOrderId, MOrderId);
+        wrapper.eq(MOrder::getOrderId, orderId);
         MOrder one = orderService.getOne(wrapper);
         return Result.ok().data("order", one);
+    }
+
+
+    /**
+     * 通过电影票购买的，页面需要展示相应电影的播放展示厅，电影的基本信息
+     * @param orderId
+     * @return
+     */
+    @GetMapping("getOrderInfoByTicket/{orderId}")
+    public Result getOrderInfoByTicket(@PathVariable String orderId) {
+
+        Map<String,Object> map =  orderService.getOrderInfoByTicket(orderId);
+        return Result.ok().data(map);
     }
 
 

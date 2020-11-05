@@ -1,5 +1,6 @@
 package com.yiying.movie.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yiying.movie.entity.MMoviePlayHall;
 import com.yiying.movie.mapper.MMoviePlayHallMapper;
 import com.yiying.movie.service.MMoviePlayHallService;
@@ -17,4 +18,12 @@ import org.apache.dubbo.config.annotation.Service;
 @Service
 public class MMoviePlayHallServiceImpl extends ServiceImpl<MMoviePlayHallMapper, MMoviePlayHall> implements MMoviePlayHallService {
 
+    @Override
+    public MMoviePlayHall getPlayHall(String movieId) {
+        //获取电影展厅的名称
+        LambdaQueryWrapper<MMoviePlayHall> wrapper1 = new LambdaQueryWrapper<>();
+        wrapper1.eq(MMoviePlayHall::getMovieId, movieId);
+        MMoviePlayHall playHall = this.getOne(wrapper1);
+        return playHall;
+    }
 }

@@ -3,10 +3,11 @@ package com.yiying.movie.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class MovieVo {
+public class MovieVo implements Serializable {
 
     private String title;
     private String poster;

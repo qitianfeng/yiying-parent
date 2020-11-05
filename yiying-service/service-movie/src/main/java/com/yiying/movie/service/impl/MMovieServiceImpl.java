@@ -161,22 +161,22 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
      *
      * @return
      */
-    private String initializeHallSeats() {
+    private  String initializeHallSeats() {
 
         ArrayList<PlayHallSeat> seats = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
+            int t = i+1;
             for (int j = 0; j < 10; j++) {
                 PlayHallSeat seat = new PlayHallSeat();
-                seat.setSeatsRow(String.valueOf(i));
-                seat.setSeatsColumn(String.valueOf(j));
-                seat.setStatus(String.valueOf(0));
+                seat.setSeatsRow(String.valueOf(t));
+                seat.setSeatsColumn(String.valueOf(j+1));
+                seat.setStatus("1");
                 seats.add(seat);
             }
         }
         //将list数组转化为json字符串
         return JSON.toJSONString(seats);
     }
-
     @Override
     public void updateMovieInfo(MovieVo movieInfo) {
 

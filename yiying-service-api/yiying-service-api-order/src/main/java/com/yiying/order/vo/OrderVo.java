@@ -1,18 +1,17 @@
-package com.yiying.order.entity;
+package com.yiying.order.vo;
 
-import java.math.BigDecimal;
-
-import com.baomidou.mybatisplus.annotation.*;
-
-import java.util.Date;
-
-import java.io.Serializable;
-
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * <p>
@@ -23,10 +22,8 @@ import lombok.experimental.Accessors;
  * @since 2020-10-24
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @ApiModel(value="MOrder对象", description="")
-public class MOrder implements Serializable {
+public class OrderVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -52,8 +49,6 @@ public class MOrder implements Serializable {
 
     @ApiModelProperty(value = "会员手机")
     private String mobile;
-    @ApiModelProperty(value = "座位信息")
-    private String seats;
 
     @ApiModelProperty(value = "订单金额（分）")
     private BigDecimal totalFee;

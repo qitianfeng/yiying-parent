@@ -3,6 +3,8 @@ package com.yiying.pay.service;
 import com.yiying.pay.entity.MPayLog;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.Map;
+
 /**
  * <p>
  *  服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface MPayLogService extends IService<MPayLog> {
 
+    void updateOrderStatus(Map<String, String> map);
 }

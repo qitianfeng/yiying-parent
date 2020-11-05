@@ -13,7 +13,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/search")
 public class SearchController {
-   /* @Autowired
+    @Autowired
     private SearchService searchService;
 
     @RequestMapping("/import")
@@ -57,5 +57,4 @@ public class SearchController {
         Map search = searchService.search(searchMap);
         return Result.ok().data(search).data("url", urlString);
     }
-*/
 }

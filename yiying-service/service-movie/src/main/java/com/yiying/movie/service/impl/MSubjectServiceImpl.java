@@ -139,4 +139,11 @@ public class MSubjectServiceImpl extends ServiceImpl<MSubjectMapper, MSubject> i
         }
         return allFirstSubject;
     }
+
+    @Override
+    public MSubject getTitleById(String subjectId) {
+        LambdaQueryWrapper<MSubject> wrapper2 = new LambdaQueryWrapper<>();
+        wrapper2.eq(MSubject::getId,subjectId);
+        return this.getOne(wrapper2);
+    }
 }

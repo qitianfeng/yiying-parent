@@ -45,4 +45,5 @@ public interface MSubjectService extends IService<MSubject> {
      */
     List<String> getAllFirstSubject();
 
+    MSubject getTitleById(String subjectId);
 }

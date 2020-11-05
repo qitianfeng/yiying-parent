@@ -14,9 +14,12 @@ import com.yiying.movie.service.MMovieService;
 import com.yiying.movie.vo.MovieVo;
 import com.yiying.order.entity.MOrder;
 import com.yiying.order.service.MOrderService;
+import com.yiying.order.vo.OrderVo;
+import com.yiying.pay.producer.PayProducer;
 import com.yiying.pay.service.MPayLogService;
 import com.yiying.pay.utils.ConstantPropertiesApliPayUtil;
 import com.yiying.pay.vo.AlipayVo;
+import com.yiying.pay.vo.OrderExt;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -29,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,14 +56,15 @@ public class MPayLogController {
     @Reference
     private MMovieService mMovieService;
 
+    @Autowired
+    private PayProducer payProducer;
 
 
     @GetMapping("/alipay/{orderNo}")
     @ResponseBody
     public Result alipay(@PathVariable String orderNo, HttpServletResponse response) {
-        LambdaQueryWrapper<MOrder> wrapper = new LambdaQueryWrapper<MOrder>();
-        wrapper.eq(MOrder::getOrderId, orderNo);
-        MOrder order = orderService.getOne(wrapper);
+
+        OrderVo order = orderService.getByOrderNo(orderNo);
         if (order == null) {
             return Result.error();
         }
@@ -165,19 +170,19 @@ public class MPayLogController {
         }
         if (signVerified) {
             //更新支付状态
-//            payLogService.updateOrderStatus(map);
-//            String courseId = orderService.queryByOutTradeNo(out_trade_no);
-//            modelMap.put("courseId",courseId);
-//
-//            //发送异步消息，更新支付信息，更新订单状态
-//            OrderExt orderExt = new OrderExt();
-//            orderExt.setOrderNo(out_trade_no);
-//            orderExt.setCourseId(courseId);
-//            try {
-//                payProducer.sendAsyncMsgByJsonDelay("topic",orderExt);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
+            payLogService.updateOrderStatus(map);
+            String movieId = orderService.queryByOutTradeNo(out_trade_no);
+            modelMap.put("movieId",movieId);
+
+            //发送异步消息，更新支付信息，更新订单状态
+            OrderExt orderExt = new OrderExt();
+            orderExt.setOrderNo(out_trade_no);
+            orderExt.setMovieId(movieId);
+            try {
+                payProducer.sendAsyncMsgByJsonDelay("topic",orderExt);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return new ModelAndView("success.htm");
         } else {
             System.out.println("验证失败,不去更新状态");
