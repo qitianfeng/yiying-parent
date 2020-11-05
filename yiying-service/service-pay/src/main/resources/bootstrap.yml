@@ -1,0 +1,52 @@
+server:
+  port: 2081
+
+nacos:
+  server:
+    addr: 123.57.11.24:8848
+spring:
+  application:
+    name: service-pay
+  datasource:
+    # 当前数据源操作类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    # mysql驱动类
+    druid:
+      initial-size: 2
+      max-active: 20
+      min-idle: 2
+      url: 'jdbc:mysql://101.132.142.155:3306/yi_pay?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true'
+      username: root
+      password: 123456
+      driver-class-name: 'com.mysql.cj.jdbc.Driver'
+      name: storageDataSource
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${nacos.server.addr}
+        namespace: 2b5e1df2-904b-44aa-9b1f-96270ad81897
+        cluster-name: DEFAULT
+      config:
+        server-addr: ${nacos.server.addr} #配置中心地址
+        file-extension: yaml
+        namespace: 2b5e1df2-904b-44aa-9b1f-96270ad81897 # 命令行注入
+        group: MOVIE_GROUP
+        ext-config:
+          -
+            refresh: true
+            data-id: spring-boot-http.yaml # spring boot http配置
+            group: COMMON_GROUP # 通用配置组
+
+dubbo:
+  scan:
+    base-packages: com.yiying.pay.service.impl
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 20186
+  registry:
+    #    id: dubbo-account-example-registry
+    address: nacos://123.57.11.24:8848
+  cloud:
+    subscribed-services: ""

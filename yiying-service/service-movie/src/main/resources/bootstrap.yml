@@ -1,0 +1,42 @@
+#服务端口
+server:
+  port: 2001
+
+
+nacos:
+  server:
+    addr: 123.57.11.24:8848
+
+spring:
+  application:
+    name: service-movie
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${nacos.server.addr}
+        namespace: 2b5e1df2-904b-44aa-9b1f-96270ad81897
+        cluster-name: DEFAULT
+      config:
+        server-addr: ${nacos.server.addr} #配置中心地址
+        file-extension: yaml
+        namespace: 2b5e1df2-904b-44aa-9b1f-96270ad81897 # 命令行注入
+        group: MOVIE_GROUP
+
+        ext-config:
+         -
+            refresh: true
+            data-id: spring-boot-http.yaml # spring boot http配置
+            group: COMMON_GROUP # 通用配置组
+
+dubbo:
+  scan:
+    base-packages: com.yiying.movie.service.impl
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 21888
+  registry:
+    #    id: dubbo-account-example-registry
+    address: nacos://123.57.11.24:8848
+  cloud:
+    subscribed-services: ""
