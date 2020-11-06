@@ -69,4 +69,11 @@ public interface MMovieService extends IService<MMovie> {
      * @return
      */
     MovieItemVo getMovieItemById(String movieId);
+
+    /**
+     * 更新电影的评分
+     * @param movieId
+     * @param rate
+     */
+    void updateMovieMsg(String movieId, Integer rate);
 }

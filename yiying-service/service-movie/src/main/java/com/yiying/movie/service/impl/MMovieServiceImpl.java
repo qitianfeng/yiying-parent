@@ -129,7 +129,6 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
             }
 
 
-
             MMoviePlayHall moviePlayHall = new MMoviePlayHall();
             Date date = defaultDateFormat.parse(mMovie.getReleaseDate());
             moviePlayHall.setStartUseTime(date);
@@ -161,15 +160,15 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
      *
      * @return
      */
-    private  String initializeHallSeats() {
+    private String initializeHallSeats() {
 
         ArrayList<PlayHallSeat> seats = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            int t = i+1;
+            int t = i + 1;
             for (int j = 0; j < 10; j++) {
                 PlayHallSeat seat = new PlayHallSeat();
                 seat.setSeatsRow(String.valueOf(t));
-                seat.setSeatsColumn(String.valueOf(j+1));
+                seat.setSeatsColumn(String.valueOf(j + 1));
                 seat.setStatus("1");
                 seats.add(seat);
             }
@@ -177,6 +176,7 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
         //将list数组转化为json字符串
         return JSON.toJSONString(seats);
     }
+
     @Override
     public void updateMovieInfo(MovieVo movieInfo) {
 
@@ -399,17 +399,25 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
         return movieItemVo;
     }
 
+    /**
+     * 更新电影的评分
+     *
+     * @param movieId
+     * @param rate
+     */
+    @Override
+    public void updateMovieMsg(String movieId, Integer rate) {
+        MMovie movie = this.getById(movieId);
+        Double i = Double.parseDouble(movie.getRating());
+        i = i + rate;
+
+        movie.setRating((i / movie.getRatingCount() % 10) + "");
+        //评分人数累计
+        movie.setRatingCount(movie.getRatingCount() + 1);
+        this.update(movie, null);
+    }
+
     public static void main(String[] args) throws ParseException {
-//        Date parse = simpleDateFormat.parse("2020-11-01T04:00:00.000Z");
-//        Date parse = simpleDateFormat.parse("2020-01-13T16:00:00.000Z");
-       /* Date date = new Date();
-        long time = parse.getTime();
-        long time1 = date.getTime();
-        Long t = time + time1;
-        Date date1 = new Date(t);
-        simpleDateFormat.format(date1);
-        System.out.println(date1);*/
-//        System.out.println(parse);
         String dateTime = "2020-11-01T04:00:00.000Z";
         dateTime = dateTime.replace("Z", " UTC");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z");

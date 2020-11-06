@@ -44,7 +44,7 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
     @Reference
     private MMovieService movieService;
 
-    @Reference
+    @Reference(check = false,init = true)
     private YiMemberService memberService;
 
 

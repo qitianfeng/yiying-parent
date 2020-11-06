@@ -97,5 +97,14 @@ public class MMovieController {
         }
         return Result.error();
     }
+
+    //电影评分
+    @GetMapping("/rate/{movieId}")
+    public Result rateMovie(@PathVariable String movieId, Integer rate){
+
+        mMovieService.updateMovieMsg(movieId,rate);
+
+        return Result.ok();
+    }
 }
 

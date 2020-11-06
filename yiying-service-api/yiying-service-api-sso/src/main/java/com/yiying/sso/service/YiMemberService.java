@@ -2,9 +2,9 @@ package com.yiying.sso.service;
 
 import com.yiying.sso.entity.YiMember;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yiying.sso.vo.LoginInfo;
-import com.yiying.sso.vo.LoginVo;
-import com.yiying.sso.vo.RegisterVo;
+import com.yiying.sso.vo.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -35,4 +35,20 @@ public interface YiMemberService extends IService<YiMember> {
      * @return
      */
     LoginInfo getLoginInfo(String memberId);
+
+    /**
+     * 查询会员的订单信息
+     * @param memberId
+     * @return
+     */
+    List<MemberOrder> queryOrder(String memberId);
+
+    /**
+     * 修改用户密码
+     *
+     * @param memberId
+     * @param memberPassword
+     * @return
+     */
+    Boolean modifiedSecret(String memberId, MemberPassword memberPassword);
 }
