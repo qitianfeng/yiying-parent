@@ -3,6 +3,7 @@ package com.yiying.order.service;
 import com.yiying.order.entity.MOrder;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yiying.order.vo.OrderVo;
+import com.yiying.order.vo.Params;
 
 import java.util.Map;
 
@@ -49,4 +50,12 @@ public interface MOrderService extends IService<MOrder> {
      * @return
      */
     Map<String, Object> getOrderInfoByTicket(String orderId);
+
+    /**
+     * 修改订单的信息
+     * @param orderId
+     * @param memberId
+     * @param params
+     */
+    void modifyTicketOrder(String orderId, String memberId, Params params);
 }

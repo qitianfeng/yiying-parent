@@ -18,16 +18,16 @@ import com.yiying.order.entity.MOrder;
 import com.yiying.order.mapper.MOrderMapper;
 import com.yiying.order.vo.OrderTicketVo;
 import com.yiying.order.vo.OrderVo;
+import com.yiying.order.vo.Params;
 import com.yiying.sso.service.YiMemberService;
 import com.yiying.sso.vo.LoginInfo;
-import io.swagger.models.auth.In;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -155,7 +155,7 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
         MPlayHall playHall = playHallService.getById(moviePlayHall.getWatchHallId());
 
         //拼接场次信息，放映日期+播放厅的名称
-        orderTicketVo.setChangci(byId.getReleaseDate() +"---" +playHall.getTitle());
+        orderTicketVo.setChangci(byId.getReleaseDate() + "---" + playHall.getTitle());
 
         orderTicketVo.setPlayHall(playHall.getTitle());
         //获取电影的位置信息
@@ -170,18 +170,78 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
             String s1 = JSON.toJSONString(list.get(i));
             PlayHallSeat playHallSeat = JSON.parseObject(s1, PlayHallSeat.class);
             System.out.println(playHallSeat);
-            int x =Integer.parseInt(playHallSeat.getSeatsRow()) - 1;
-            int y =Integer.parseInt(playHallSeat.getSeatsColumn()) - 1;
+            int x = Integer.parseInt(playHallSeat.getSeatsRow()) - 1;
+            int y = Integer.parseInt(playHallSeat.getSeatsColumn()) - 1;
             seat[x][y] = Integer.parseInt(playHallSeat.getStatus());
         }
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("seats",seat);
+        map.put("seats", seat);
         for (int[] ints : seat) {
             System.out.print(ints);
         }
-        map.put("movieMessage",orderTicketVo);
+        map.put("movieMessage", orderTicketVo);
         return map;
+    }
+
+    /**
+     * 修改订单的信息
+     *  @param orderId
+     * @param memberId
+     * @param params
+     */
+    @Override
+    public void modifyTicketOrder(String orderId, String memberId, Params params) {
+        LambdaQueryWrapper<MOrder> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(MOrder::getOrderId,orderId);
+        wrapper.eq(MOrder::getMemberId,memberId);
+        MOrder order = this.getOne(wrapper);
+        ///修改订单的价格
+        order.setTotalFee(order.getTotalFee().multiply(new BigDecimal(params.getLength())));
+
+        //更新订单的座位信息
+        ArrayList<PlayHallSeat> playHallSeats = new ArrayList<>();
+        PlayHallSeat playHallSeat = null;
+        int[][] list = params.getMsg();;
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (list[i][j]==(2)) {
+                    playHallSeat = new PlayHallSeat();
+                    playHallSeat.setSeatsRow(i + 1 + "");
+                    playHallSeat.setSeatsColumn(j + 1 + "");
+                    playHallSeat.setStatus("2");
+                    playHallSeats.add(playHallSeat);
+                }
+            }
+        }
+        String seats = JSON.toJSONString(playHallSeats);
+        order.setSeats(seats);
+
+        //更新影院的座位表信息
+        MMoviePlayHall moviePlayHall = moviePlayHallService.getOneByMovieId(order.getMovieId());
+
+        ArrayList<PlayHallSeat> seats1 = new ArrayList<>();
+        playHallSeat = null;
+        int[][] list1 = params.getList();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                playHallSeat = new PlayHallSeat();
+                playHallSeat.setSeatsRow(String.valueOf(i+1));
+                playHallSeat.setSeatsColumn(String.valueOf(j+1));
+                playHallSeat.setStatus(String.valueOf(list1[i][j]));
+                seats1.add(playHallSeat);
+            }
+        }
+
+        String s = JSON.toJSONString(seats1);
+        moviePlayHall.setSeats(s);
+
+        moviePlayHallService.update(moviePlayHall,null);
+
+        boolean update = this.update(order, null);
+
+        System.out.println(update);
     }
 
     private MOrder getOrder(String movieId, String jwtToken) {
@@ -208,7 +268,22 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
     }
 
     public static void main(String[] args) {
-
+        System.out.println(initializeHallSeats());
     }
+    private static   String initializeHallSeats() {
 
+        ArrayList<PlayHallSeat> seats = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            int t = i+1;
+            for (int j = 0; j < 10; j++) {
+                PlayHallSeat seat = new PlayHallSeat();
+                seat.setSeatsRow(String.valueOf(t));
+                seat.setSeatsColumn(String.valueOf(j+1));
+                seat.setStatus("1");
+                seats.add(seat);
+            }
+        }
+        //将list数组转化为json字符串
+        return JSON.toJSONString(seats);
+    }
 }

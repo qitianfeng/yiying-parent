@@ -15,4 +15,6 @@ public interface MMoviePlayHallService extends IService<MMoviePlayHall> {
 
     //获取电影展厅的名称
     MMoviePlayHall getPlayHall(String movieId);
+
+    MMoviePlayHall getOneByMovieId(String movieId);
 }

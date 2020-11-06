@@ -7,6 +7,8 @@ import com.yiying.common.JwtUtils;
 import com.yiying.common.Result;
 import com.yiying.order.entity.MOrder;
 import com.yiying.order.service.MOrderService;
+import com.yiying.order.vo.OrderTicketVo;
+import com.yiying.order.vo.Params;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -79,6 +81,16 @@ public class MOrderController {
         return Result.ok().data(map);
     }
 
+    @PostMapping("/modifyTicketOrder/{orderId}")
+    public Result modifyTicketOrder(@PathVariable String orderId,@RequestBody Params params,HttpServletRequest request){
+
+
+        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+        orderService.modifyTicketOrder(orderId,memberId,params);
+
+
+        return Result.ok();
+    }
 
     @GetMapping("haveBuy/{movieId}")
     public Result haveBuy(@PathVariable String movieId, HttpServletRequest request) {

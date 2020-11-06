@@ -26,4 +26,13 @@ public class MMoviePlayHallServiceImpl extends ServiceImpl<MMoviePlayHallMapper,
         MMoviePlayHall playHall = this.getOne(wrapper1);
         return playHall;
     }
+
+    @Override
+    public MMoviePlayHall getOneByMovieId(String movieId) {
+
+
+        LambdaQueryWrapper<MMoviePlayHall> wrapper1 = new LambdaQueryWrapper<>();
+        wrapper1.eq(MMoviePlayHall::getMovieId,movieId);
+        return this.getOne(wrapper1);
+    }
 }
