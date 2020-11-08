@@ -2,19 +2,6 @@
 server:
   port: 2801
 
-dubbo:
-  scan:
-    base-packages: com.yiying.search.service.impl
-  protocol:
-    id: dubbo
-    name: dubbo
-    port: 20819
-  registry:
-    #    id: dubbo-account-example-registry
-    address: nacos://www.qitianfeng.com:8848
-  cloud:
-    subscribed-services: ""
-
 nacos:
   server:
     addr: www.qitianfeng.com:8848

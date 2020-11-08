@@ -26,21 +26,3 @@ spring:
             refresh: true
             data-id: spring-boot-http.yaml # spring boot http配置
             group: COMMON_GROUP # 通用配置组
-
-dubbo:
-  scan:
-    # dubbo 服务扫描基准包
-    base-packages: com.yiying.oss.service
-  protocol:
-    #dubbo 协议
-    name: dubbo
-    port: 20892
-  registry:
-    address: nacos://123.57.11.24:8848
-  application:
-    qos-port: 22311 #dubbo qos端口配置  命令行注入
-  consumer:
-    check: false
-    timeout: 3000
-    retries: -1
-

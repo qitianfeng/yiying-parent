@@ -29,22 +29,3 @@ spring:
             group: COMMON_GROUP # 通用配置组
 
 
-dubbo:
-  scan:
-    base-packages: com.yiying.order.service
-  protocol:
-    id: dubbo
-    name: dubbo
-    port: 21886
-  registry:
-    #    id: dubbo-account-example-registry
-    address: nacos://www.qitianfeng.com:8848
-  cloud:
-    subscribed-services: ""
-
-rocketmq:
-  nameServer: 119.29.174.186:9876
-  consumer:
-    group: demo-consumer-group
-
-

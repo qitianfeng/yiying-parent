@@ -25,16 +25,3 @@ spring:
             refresh: true
             data-id: spring-boot-http.yaml # spring boot http配置
             group: COMMON_GROUP # 通用配置组
-
-dubbo:
-  scan:
-    base-packages: com.yiying.sso.service
-  protocol:
-    id: dubbo
-    name: dubbo
-    port: 20786
-  registry:
-    #    id: dubbo-account-example-registry
-    address: nacos://www.qitianfeng.com:8848
-  cloud:
-    subscribed-services: ""

@@ -26,28 +26,3 @@ spring:
             refresh: true
             data-id: spring-boot-http.yaml # spring boot http配置
             group: COMMON_GROUP # 通用配置组
-          -
-            refresh: true
-            data-id: spring-boot-starter-druid.yaml # spring boot starter druid配置
-            group: COMMON_GROUP # 通用配置组
-          -
-            refresh: true
-            data-id: spring-boot-mybatis-plus.yaml # spring boot mybatisplus配置
-            group: COMMON_GROUP # 通用配置组
-
-dubbo:
-  scan:
-    # dubbo 服务扫描基准包
-    base-packages: com.yiying.vod.service
-  protocol:
-    #dubbo 协议
-    name: dubbo
-    port: 20891
-  registry:
-    address: nacos://www.qitianfeng.com:8848
-  application:
-    qos-port: 22310 #dubbo qos端口配置  命令行注入
-  consumer:
-    check: false
-    timeout: 3000
-    retries: -1
