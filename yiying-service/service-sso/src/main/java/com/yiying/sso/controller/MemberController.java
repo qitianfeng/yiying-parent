@@ -59,7 +59,7 @@ public class MemberController {
     public Result queryOrder(HttpServletRequest request) {
         String memberId = JwtUtils.getMemberIdByJwtToken(request);
         List<MemberOrder> orderVoList = memberService.queryOrder(memberId);
-        return Result.ok().data("memberOrder", orderVoList);
+        return Result.ok().data("orderList", orderVoList);
     }
 
     //用户修改信息
