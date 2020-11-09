@@ -100,6 +100,7 @@ public class MOrderController {
         }
         LambdaQueryWrapper<MOrder> wrapper = new LambdaQueryWrapper<MOrder>().eq(MOrder::getMovieId, movieId).eq(MOrder::getMemberId, memberId);
         wrapper.eq(MOrder::getStatus, 1);
+        wrapper.eq(MOrder::getSeats,"");
         int count = orderService.count(wrapper);
         if (count > 0) {
             return Result.error().data("isbuy", true);
