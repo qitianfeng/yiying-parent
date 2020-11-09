@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yiying.common.JwtUtils;
 import com.yiying.common.Result;
 import com.yiying.movie.entity.MMovie;
+import com.yiying.movie.entity.MMovieVideo;
 import com.yiying.movie.service.MMovieService;
+import com.yiying.movie.service.MMovieVideoService;
 import com.yiying.movie.vo.MovieItemVo;
 import com.yiying.movie.vo.MovieQuery;
 import io.swagger.annotations.ApiOperation;
@@ -24,8 +26,8 @@ public class MovieFront {
     @Autowired
     private MMovieService mMovieService;
 
-
-
+    @Autowired
+    private MMovieVideoService movieVideoService;
 
   @GetMapping("/index")
     public Result index(){
@@ -42,7 +44,9 @@ public class MovieFront {
 
         MovieItemVo movie = mMovieService.getMovieItemById(movieId);
 
-        return  Result.ok().data("movie",movie);
+        MMovieVideo movieVideo = movieVideoService.getByMovieId(movieId);
+        return  Result.ok().data("movie",movie).data("movieVideo",movieVideo);
+
     }
 
 }
