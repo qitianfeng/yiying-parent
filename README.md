@@ -23,7 +23,11 @@ webpack
 vue router
 
 前端页面链接
-````https://github.com/qitianfeng/````
+|                              |                 
+| ---------------------------- | --------------- |
+| 前台门户页面 | 后台管理页面 |
+| https://github.com/qitianfeng/online-movie-front| https://github.com/qitianfeng/online-movie-admin-template |
+
 
 # 后端使用的技术
 后端的主要架构是基于springboot+dubbo+mybatis-plus.
