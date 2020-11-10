@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class MovieItemVo {
     private String title;
     private String poster;
-    private Integer runtime;
+    private String runtime;
     private String subjectLevelOne;
     private String subjectLevelTwo;
     private String subjectLevelOneYear;
@@ -19,4 +19,5 @@ public class MovieItemVo {
     private String plotSimple;
     private String directors;
     private BigDecimal price;
+    private String rating;
 }

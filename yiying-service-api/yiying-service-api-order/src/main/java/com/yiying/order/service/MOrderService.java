@@ -58,4 +58,6 @@ public interface MOrderService extends IService<MOrder> {
      * @param params
      */
     void modifyTicketOrder(String orderId, String memberId, Params params);
+
+    MOrder getOneById(String out_trade_id);
 }

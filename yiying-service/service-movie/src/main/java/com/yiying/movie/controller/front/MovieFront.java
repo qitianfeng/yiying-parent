@@ -10,6 +10,7 @@ import com.yiying.movie.service.MMovieService;
 import com.yiying.movie.service.MMovieVideoService;
 import com.yiying.movie.vo.MovieItemVo;
 import com.yiying.movie.vo.MovieQuery;
+import com.yiying.order.service.MOrderService;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
@@ -28,6 +29,8 @@ public class MovieFront {
 
     @Autowired
     private MMovieVideoService movieVideoService;
+    @Reference(check = false)
+    private MOrderService orderService;
 
   @GetMapping("/index")
     public Result index(){
@@ -36,16 +39,16 @@ public class MovieFront {
   }
 
     @ApiOperation("电影详情页")
-    @GetMapping("getMovie/{movieId}")
-    public Result getCourseByTeacherId(@PathVariable String movieId, HttpServletRequest request) {
+    @GetMapping("getMovie/{memberId}/{movieId}")
+    public Result getCourseByTeacherId(@PathVariable String memberId,@PathVariable String movieId) {
 
-        String token = JwtUtils.getMemberIdByJwtToken(request);
         Boolean haveBuy = false;
 
         MovieItemVo movie = mMovieService.getMovieItemById(movieId);
 
         MMovieVideo movieVideo = movieVideoService.getByMovieId(movieId);
-        return  Result.ok().data("movie",movie).data("movieVideo",movieVideo);
+        Boolean aBoolean = orderService.haveBuy(memberId, movieId);
+        return  Result.ok().data("movie",movie).data("movieVideo",movieVideo).data("isBuy",aBoolean);
 
     }
 

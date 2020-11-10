@@ -22,7 +22,7 @@ public class CodeGenerator {
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("H:\\Program Files\\IDEA_workforce\\spring-boot-workforce\\yiying-parent\\yiying-service-api\\yiying-service-api-pay"+ "/src/main/java");
+        gc.setOutputDir("H:\\Program Files\\IDEA_workforce\\spring-boot-workforce\\yiying-parent\\yiying-service-api\\yiying-service-api-banner"+ "/src/main/java");
         gc.setAuthor("qitianfeng");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(false); //重新生成时文件是否覆盖
@@ -35,7 +35,7 @@ public class CodeGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://101.132.142.155:3306/yi_pay");
+        dsc.setUrl("jdbc:mysql://101.132.142.155:3306/yiying_banner");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("123456");
@@ -44,7 +44,7 @@ public class CodeGenerator {
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("pay"); //模块名
+        pc.setModuleName("banner"); //模块名
         pc.setParent("com.yiying");
         pc.setController("controller");
         pc.setEntity("entity");
@@ -54,7 +54,7 @@ public class CodeGenerator {
 
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("m_pay_log");
+        strategy.setInclude("m_banner");
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
 

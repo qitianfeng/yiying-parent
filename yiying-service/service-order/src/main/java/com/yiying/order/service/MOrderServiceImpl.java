@@ -244,6 +244,13 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
         System.out.println(update);
     }
 
+    @Override
+    public MOrder getOneById(String out_trade_id) {
+        LambdaQueryWrapper<MOrder> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(MOrder::getOrderId,out_trade_id);
+        return this.getOne(wrapper);
+    }
+
     private MOrder getOrder(String movieId, String jwtToken) {
         //获取电影信息
         MovieVo movieInfo = movieService.getMovieInfo(movieId);

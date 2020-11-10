@@ -23,3 +23,10 @@ spring:
             refresh: true
             data-id: spring-boot-http.yaml # spring boot http配置
             group: COMMON_GROUP # 通用配置组
+rocketmq:
+  nameServer: 123.57.11.24:9876
+  producer:
+    group: order-producer-group
+  consumer:
+    group: demo-consumer-group
+

@@ -27,5 +27,3 @@ spring:
             refresh: true
             data-id: spring-boot-http.yaml # spring boot http配置
             group: COMMON_GROUP # 通用配置组
-
-

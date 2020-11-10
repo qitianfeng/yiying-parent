@@ -33,28 +33,20 @@ public class MOrderController {
     private MOrderService orderService;
 
 
-    @PostMapping("createOrder/{movieId}")
-    public Result createOrder(@PathVariable String movieId, HttpServletRequest request) {
+    @PostMapping("createOrder/{memberId}/{movieId}")
+    public Result createOrder(@PathVariable String memberId,@PathVariable String movieId) {
 
-        String jwtToken = JwtUtils.getMemberIdByJwtToken(request);
-        if (StringUtils.isEmpty(jwtToken)) {
-            return Result.error().message("请登录后再购买");
-        }
         //根据课程id和用户id创建订单
-        String orderId = orderService.createOrder(movieId, jwtToken);
+        String orderId = orderService.createOrder(movieId, memberId);
         return Result.ok().data("orderId", orderId);
     }
 
 
-    @PostMapping("createOrdersTicket/{movieId}")
-    public Result createOrdersTicket(@PathVariable String movieId, HttpServletRequest request) {
+    @PostMapping("createOrdersTicket/{memberId}/{movieId}")
+    public Result createOrdersTicket(@PathVariable String memberId,@PathVariable String movieId, HttpServletRequest request) {
 
-        String jwtToken = JwtUtils.getMemberIdByJwtToken(request);
-        if (StringUtils.isEmpty(jwtToken)) {
-            return Result.error().message("请登录后再购买");
-        }
         //根据课程id和用户id创建订单
-        String orderId = orderService.createOrdersTicket(movieId, jwtToken);
+        String orderId = orderService.createOrdersTicket(movieId, memberId);
         return Result.ok().data("orderId", orderId);
     }
 
@@ -81,32 +73,18 @@ public class MOrderController {
         return Result.ok().data(map);
     }
 
-    @PostMapping("/modifyTicketOrder/{orderId}")
-    public Result modifyTicketOrder(@PathVariable String orderId,@RequestBody Params params,HttpServletRequest request){
+    @PostMapping("/modifyTicketOrder/{memberId}{orderId}")
+    public Result modifyTicketOrder(@PathVariable String memberId,@PathVariable String orderId,@RequestBody Params params){
 
-
-        String memberId = JwtUtils.getMemberIdByJwtToken(request);
+//
+//        String memberId = JwtUtils.getMemberIdByJwtToken(request);
         orderService.modifyTicketOrder(orderId,memberId,params);
 
 
         return Result.ok();
     }
 
-    @GetMapping("haveBuy/{movieId}")
-    public Result haveBuy(@PathVariable String movieId, HttpServletRequest request) {
-        String memberId = JwtUtils.getMemberIdByJwtToken(request);
-        if (memberId == null) {
-            return Result.error().data("isbuy", false);
-        }
-        LambdaQueryWrapper<MOrder> wrapper = new LambdaQueryWrapper<MOrder>().eq(MOrder::getMovieId, movieId).eq(MOrder::getMemberId, memberId);
-        wrapper.eq(MOrder::getStatus, 1);
-        wrapper.eq(MOrder::getSeats,"");
-        int count = orderService.count(wrapper);
-        if (count > 0) {
-            return Result.error().data("isbuy", true);
-        }
-        return Result.error().data("isbuy", false);
-    }
+
 
 }
 

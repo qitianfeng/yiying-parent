@@ -55,25 +55,25 @@ public class SearchServiceImpl implements SearchService {
         List<SearchInfo> searchInfos = new ArrayList<>();
 
         for (MMovie movie : movieList) {
-            Map<String, Object> specMap =  new HashMap<String, Object>();
+            Map<String, Object> specMap = new HashMap<String, Object>();
 
             SearchInfo searchInfo = new SearchInfo();
-            BeanUtils.copyProperties(movie,searchInfo);
+            BeanUtils.copyProperties(movie, searchInfo);
 
             //拼接全部地区规格参数
             MSubject subject = subjectService.getById(movie.getSubjectId());
             MSubject subjectParent = subjectService.getById(movie.getSubjectParentId());
-            specMap.put(subjectParent.getGenres(),subject.getGenres());
+            specMap.put(subjectParent.getGenres(), subject.getGenres());
 
             //拼接全部年份规格参数
             String yearParent = subjectService.getById(movie.getSubjectYearParentId()).getGenres();
             String year = subjectService.getById(movie.getSubjectYearId()).getGenres();
-            specMap.put(yearParent,year);
+            specMap.put(yearParent, year);
 
             //拼接全部类型规格参数
             String genres = subjectService.getById(movie.getSubjectGeneresParentId()).getGenres();
             String genres1 = subjectService.getById(movie.getSubjectGeneresId()).getGenres();
-            specMap.put(genres,genres1);
+            specMap.put(genres, genres1);
 
             searchInfo.setSpecMap(specMap);
             String s = JSON.toJSONString(specMap);
@@ -88,6 +88,7 @@ public class SearchServiceImpl implements SearchService {
 
     /**
      * 根据查询条件查询数据并返回相应信息
+     *
      * @param searchMap
      * @return
      */
@@ -101,8 +102,8 @@ public class SearchServiceImpl implements SearchService {
         if (searchMap != null && searchMap.size() > 0) {
             //根据关键字搜索
             keyWord = searchMap.get("keywords");
-            if (StringUtils.isEmpty(keyWord )) {
-                keyWord  = "";
+            if (StringUtils.isEmpty(keyWord)) {
+                keyWord = "";
             }
             if (!StringUtils.isEmpty(keyWord)) {
                 builder.withQuery(QueryBuilders.queryStringQuery(keyWord).field("title"));
@@ -120,18 +121,17 @@ public class SearchServiceImpl implements SearchService {
         builder.addAggregation(AggregationBuilders.terms("subjectSpec").field("subjectSpec.keyword"));
 
 
-
         //4.4 设置高亮的字段 设置前缀 和 后缀
 
         //设置高亮的字段 针对 商品的名称进行高亮
-        HighlightBuilder.Field field = new HighlightBuilder.Field("title");
-        //设置前缀 和 后缀
-        field.preTags("<em style=\"color:red\">").postTags("</em>");
-        field.fragmentSize(100);
-        builder.withHighlightFields(field);
-
+        if (!StringUtils.isEmpty(keyWord)) {
+            HighlightBuilder.Field field = new HighlightBuilder.Field("title");
+            //设置前缀 和 后缀
+            field.preTags("<em style=\"color:red\">").postTags("</em>");
+            field.fragmentSize(100);
+            builder.withHighlightFields(field);
+        }
 //        builder.withQuery(QueryBuilders.multiMatchQuery(keyWord));
-
 
 
         //========================过滤查询 开始=====================================
@@ -147,11 +147,11 @@ public class SearchServiceImpl implements SearchService {
 
         //4.6 过滤查询的条件设置   规格条件
 
-        if(searchMap!=null){
+        if (searchMap != null) {
             for (String key : searchMap.keySet()) {//{ brand:"",category:"",spec_后端开发:"Java"}
-                if(key.startsWith("spec_"))  {
+                if (key.startsWith("spec_")) {
                     //截取规格的名称
-                    boolQueryBuilder.filter(QueryBuilders.termQuery("specMap."+key.substring(5)+".keyword", searchMap.get(key)));
+                    boolQueryBuilder.filter(QueryBuilders.termQuery("specMap." + key.substring(5) + ".keyword", searchMap.get(key)));
                 }
             }
         }
@@ -197,6 +197,8 @@ public class SearchServiceImpl implements SearchService {
 
         //5.构建查询对象(封装了查询的语法)
         NativeSearchQuery nativeSearchQuery = builder.build();
+
+
 
         //6.执行查询
         AggregatedPage<SearchInfo> page = elasticsearchTemplate.queryForPage(

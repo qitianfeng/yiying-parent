@@ -19,6 +19,7 @@
         <module>yiying-service-api-order</module>
         <module>yiying-service-api-pay</module>
         <module>yiying-service-api-serach</module>
+        <module>yiying-service-api-banner</module>
     </modules>
 
     <dependencies>

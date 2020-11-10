@@ -15,5 +15,5 @@ import java.util.Map;
  */
 public interface MPayLogService extends IService<MPayLog> {
 
-    void updateOrderStatus(Map<String, String> map);
+    void updateOrderStatus(Map<String, String> map, String memberId);
 }

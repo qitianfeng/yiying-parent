@@ -1,10 +1,11 @@
-package com.yiying.order.consumer;
+package com.yiying.pay.consumer;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yiying.order.entity.MOrder;
 import com.yiying.order.service.MOrderService;
 import com.yiying.pay.vo.OrderExt;
+import org.apache.dubbo.config.annotation.Reference;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 @RocketMQMessageListener(topic = "topic",consumerGroup = "${rocketmq.consumer.group}")
 public class ConsumerOrder implements RocketMQListener<String> {
 
-    @Autowired
+    @Reference
     MOrderService orderService;
     @Override
     public void onMessage(String s) {

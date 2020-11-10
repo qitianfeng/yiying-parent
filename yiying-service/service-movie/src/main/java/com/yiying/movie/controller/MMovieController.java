@@ -104,7 +104,7 @@ public class MMovieController {
 
         mMovieService.updateMovieMsg(movieId,rate);
 
-        return Result.ok();
+        return Result.ok().data("flag",1);
     }
 }
 
