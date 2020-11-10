@@ -76,8 +76,6 @@
     <orderEntry type="library" name="Maven: org.jvnet.staxex:stax-ex:1.8.1" level="project" />
     <orderEntry type="library" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.16" level="project" />
     <orderEntry type="library" name="Maven: jakarta.activation:jakarta.activation-api:1.2.1" level="project" />
-    <orderEntry type="module" module-name="yiying-service-api-sso" />
-    <orderEntry type="module" module-name="yiying-service-api-pay" />
     <orderEntry type="library" name="Maven: org.apache.rocketmq:rocketmq-spring-boot:2.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.29" level="project" />
     <orderEntry type="library" name="Maven: org.apache.rocketmq:rocketmq-client:4.5.1" level="project" />
@@ -99,6 +97,8 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.0" level="project" />
+    <orderEntry type="module" module-name="yiying-service-api-sso" />
+    <orderEntry type="module" module-name="yiying-service-api-pay" />
     <orderEntry type="module" module-name="yiying-common-base-utils" />
     <orderEntry type="module" module-name="yiying-common-uitls" />
     <orderEntry type="library" name="Maven: io.jsonwebtoken:jjwt:0.7.0" level="project" />

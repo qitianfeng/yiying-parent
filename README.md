@@ -10,7 +10,8 @@
 
 # 项目用到的技术
 项目采用前后端分离开发，前端需要独立部署。目前核心的技术栈采用的是SpringBoot2.1.5.RELEASE+Dubbo2.7.2,
-
+# 数据库E-R图
+![./img/Online Movie System ER Diagram.bmp]
 # 前端使用的技术
 nodejs
 axios
@@ -22,23 +23,27 @@ webpack
 vue router
 
 前端页面链接
-````https://github.com/qitianfeng/````
+|                                                 |                                                           |
+| ----------------------------------------------  | --------------------------------------------------------- |
+|  前台门户页面                                    |    后台管理页面                                           |
+| https://github.com/qitianfeng/online-movie-front| https://github.com/qitianfeng/online-movie-admin-template |
+
 
 # 后端使用的技术
 后端的主要架构是基于springboot+dubbo+mybatis-plus.
 
-SpringBoot2.1.6
-Mybatis
-Dubbo2.7.3
-nacos
-Mysql
-Redis
-Elasticsearch
-druid
-Docker
-mybatis generator
-Sentinel
-Seata
+SpringBoot2.1.6 <br/>
+Mybatis<br/>
+Dubbo2.7.3<br/>
+nacos<br/>
+Mysql<br/>
+Redis<br/>
+Elasticsearch<br/>
+druid<br/>
+Docker<br/>
+mybatis generator<br/>
+Sentinel<br/>
+Seata<br/>
 
 # 后台项目模块说明及规划
 |                              |                 |                                                              |
