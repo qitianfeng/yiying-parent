@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="yiying-service-api-sso" />
+        <module name="yiying-service-api-serach" />
+        <module name="yiying-service-api-movie" />
+        <module name="service-vd" />
+        <module name="yiying-common-uitls" />
+        <module name="service-order" />
+        <module name="service-movie" />
+        <module name="yiying-service-api-vd" />
+        <module name="yiying-service-api-order" />
+        <module name="service-pay" />
+        <module name="service-oss" />
+        <module name="yiying-gateway" />
+        <module name="yiying-service-api-banner" />
+        <module name="yiying-common-base-utils" />
+        <module name="service-sso" />
+        <module name="yiying-service-api-pay" />
+        <module name="yiying-service-api-oss" />
+        <module name="service-banner" />
+        <module name="service-serach" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="service-banner" target="1.8" />
+      <module name="service-movie" target="1.8" />
+      <module name="service-order" target="1.8" />
+      <module name="service-oss" target="1.8" />
+      <module name="service-pay" target="1.8" />
+      <module name="service-serach" target="1.8" />
+      <module name="service-sso" target="1.8" />
+      <module name="service-vd" target="1.8" />
+      <module name="yiying-common" target="1.8" />
+      <module name="yiying-common-base-utils" target="1.8" />
+      <module name="yiying-common-uitls" target="1.8" />
+      <module name="yiying-gateway" target="1.8" />
+      <module name="yiying-parent" target="1.8" />
+      <module name="yiying-service" target="1.8" />
+      <module name="yiying-service-api" target="1.8" />
+      <module name="yiying-service-api-banner" target="1.8" />
+      <module name="yiying-service-api-movie" target="1.8" />
+      <module name="yiying-service-api-order" target="1.8" />
+      <module name="yiying-service-api-oss" target="1.8" />
+      <module name="yiying-service-api-pay" target="1.8" />
+      <module name="yiying-service-api-serach" target="1.8" />
+      <module name="yiying-service-api-sso" target="1.8" />
+      <module name="yiying-service-api-vd" target="1.8" />
+      <module name="yiying-service-api-vod" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

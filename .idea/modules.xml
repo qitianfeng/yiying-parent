@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/yiying-service/service-banner/service-banner.iml" filepath="$PROJECT_DIR$/yiying-service/service-banner/service-banner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service/service-movie/service-movie.iml" filepath="$PROJECT_DIR$/yiying-service/service-movie/service-movie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service/service-order/service-order.iml" filepath="$PROJECT_DIR$/yiying-service/service-order/service-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service/service-oss/service-oss.iml" filepath="$PROJECT_DIR$/yiying-service/service-oss/service-oss.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service/service-pay/service-pay.iml" filepath="$PROJECT_DIR$/yiying-service/service-pay/service-pay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service/service-serach/service-serach.iml" filepath="$PROJECT_DIR$/yiying-service/service-serach/service-serach.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service/service-sso/service-sso.iml" filepath="$PROJECT_DIR$/yiying-service/service-sso/service-sso.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service/service-vd/service-vd.iml" filepath="$PROJECT_DIR$/yiying-service/service-vd/service-vd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-common/yiying-common.iml" filepath="$PROJECT_DIR$/yiying-common/yiying-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-common/yiying-common-base-utils/yiying-common-base-utils.iml" filepath="$PROJECT_DIR$/yiying-common/yiying-common-base-utils/yiying-common-base-utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-common/yiying-common-uitls/yiying-common-uitls.iml" filepath="$PROJECT_DIR$/yiying-common/yiying-common-uitls/yiying-common-uitls.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-gateway/yiying-gateway.iml" filepath="$PROJECT_DIR$/yiying-gateway/yiying-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-parent.iml" filepath="$PROJECT_DIR$/yiying-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service/yiying-service.iml" filepath="$PROJECT_DIR$/yiying-service/yiying-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api.iml" filepath="$PROJECT_DIR$/yiying-service-api/yiying-service-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-banner/yiying-service-api-banner.iml" filepath="$PROJECT_DIR$/yiying-service-api/yiying-service-api-banner/yiying-service-api-banner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-movie/yiying-service-api-movie.iml" filepath="$PROJECT_DIR$/yiying-service-api/yiying-service-api-movie/yiying-service-api-movie.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-order/yiying-service-api-order.iml" filepath="$PROJECT_DIR$/yiying-service-api/yiying-service-api-order/yiying-service-api-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-oss/yiying-service-api-oss.iml" filepath="$PROJECT_DIR$/yiying-service-api/yiying-service-api-oss/yiying-service-api-oss.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-pay/yiying-service-api-pay.iml" filepath="$PROJECT_DIR$/yiying-service-api/yiying-service-api-pay/yiying-service-api-pay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-serach/yiying-service-api-serach.iml" filepath="$PROJECT_DIR$/yiying-service-api/yiying-service-api-serach/yiying-service-api-serach.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-sso/yiying-service-api-sso.iml" filepath="$PROJECT_DIR$/yiying-service-api/yiying-service-api-sso/yiying-service-api-sso.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-vd/yiying-service-api-vd.iml" filepath="$PROJECT_DIR$/yiying-service-api/yiying-service-api-vd/yiying-service-api-vd.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-common/yiying-common-base-utils" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-common/yiying-common-uitls" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-gateway" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-banner" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-movie" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-order" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-oss" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-pay" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-serach" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-sso" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service-api/yiying-service-api-vd" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service/service-banner" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service/service-movie" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service/service-order" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service/service-oss" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service/service-pay" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service/service-serach" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service/service-sso" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/yiying-service/service-vd" charset="UTF-8" />
+  </component>
+</project>
