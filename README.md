@@ -23,9 +23,9 @@ webpack
 vue router
 
 前端页面链接
-|                              |                 
-| ---------------------------- | --------------- |
-| 前台门户页面 | 后台管理页面 |
+|                                                 |                                                           |
+| ----------------------------------------------  | --------------------------------------------------------- |
+|  前台门户页面                                    |    后台管理页面                                           |
 | https://github.com/qitianfeng/online-movie-front| https://github.com/qitianfeng/online-movie-admin-template |
 
 
