@@ -11,7 +11,7 @@
 # 项目用到的技术
 项目采用前后端分离开发，前端需要独立部署。目前核心的技术栈采用的是SpringBoot2.1.5.RELEASE+Dubbo2.7.2,
 # 数据库E-R图
-![./img/Online Movie System ER Diagram.bmp]
+![https://github.com/qitianfeng/yiying-parent/blob/master/img/Online%20Movie%20System%20ER%20Diagram.bmp]
 # 前端使用的技术
 nodejs
 axios
