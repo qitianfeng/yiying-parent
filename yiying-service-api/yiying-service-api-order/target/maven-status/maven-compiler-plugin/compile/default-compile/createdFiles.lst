@@ -1,6 +1,0 @@
-com\yiying\order\vo\OrderVo.class
-com\yiying\order\service\MOrderService.class
-com\yiying\order\vo\OrderTicketVo.class
-com\yiying\order\mapper\MOrderMapper.class
-com\yiying\order\vo\Params.class
-com\yiying\order\entity\MOrder.class
