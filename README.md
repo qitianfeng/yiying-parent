@@ -6,7 +6,7 @@
 
 应用架构图
 
-![](https://github.com/qitianfeng/yiying-parent/blob/master/img/%E5%9C%A8%E7%BA%BF%E7%94%B5%E5%BD%B1%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg)
+![](./img/%E5%9C%A8%E7%BA%BF%E7%94%B5%E5%BD%B1%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg)
 
 # 项目用到的技术
 项目采用前后端分离开发，前端需要独立部署。目前核心的技术栈采用的是SpringBoot2.1.5.RELEASE+Dubbo2.7.2
