@@ -4,9 +4,9 @@
 在线电影，实现在线观看电影以及在线购买电影票的主要功能等
 技术架构，spring boot spring cloud、nacos、dubbo、mybatis-plus,采用前后端分离方式，前端主要由vue开发工具开发，分为前台门户页面和后台管理页面，后台主要由Java的一些架构开发
 
-应用架构图
+# 应用架构图
 
-![](./img/%E5%9C%A8%E7%BA%BF%E7%94%B5%E5%BD%B1%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg)
+![](https://github.com/qitianfeng/yiying-parent/blob/master/img/%E5%9C%A8%E7%BA%BF%E7%94%B5%E5%BD%B1%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg)
 
 # 项目用到的技术
 项目采用前后端分离开发，前端需要独立部署。目前核心的技术栈采用的是SpringBoot2.1.5.RELEASE+Dubbo2.7.2
