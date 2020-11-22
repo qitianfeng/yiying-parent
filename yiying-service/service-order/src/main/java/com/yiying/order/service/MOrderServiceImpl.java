@@ -26,9 +26,7 @@ import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -44,13 +42,12 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
     @Reference
     private MMovieService movieService;
 
-    @Reference(check = false,init = true)
+    @Reference(check = false, init = true)
     private YiMemberService memberService;
 
 
     @Override
     public String createOrder(String movieId, String jwtToken) {
-        //获取电影信息
         MOrder order = getOrder(movieId, jwtToken);
 
         //这里可以设置扣库存
@@ -93,7 +90,12 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
         LambdaQueryWrapper<MOrder> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(MOrder::getOrderId, out_trade_no);
         MOrder order = this.getOne(wrapper);
-
+       /* Arrays.sort(new ArrayList<String>(), new Comparator<T>() {
+            @Override
+            public int compare(T o1, T o2) {
+                return 0;
+            }
+        });*/
         return order.getMovieId();
     }
 
@@ -138,6 +140,13 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
         wrapper.eq(MOrder::getOrderId, orderId);
         MOrder order = this.getOne(wrapper);
 
+        if (order.getStatus() == 1) {
+            try {
+                throw new Exception("请不要重新下单，该订单已经被消费！");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         String movieId = order.getMovieId();
         String memberId = order.getMemberId();
         OrderTicketVo orderTicketVo = new OrderTicketVo();
@@ -186,15 +195,16 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
 
     /**
      * 修改订单的信息
-     *  @param orderId
+     *
+     * @param orderId
      * @param memberId
      * @param params
      */
     @Override
     public void modifyTicketOrder(String orderId, String memberId, Params params) {
         LambdaQueryWrapper<MOrder> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(MOrder::getOrderId,orderId);
-        wrapper.eq(MOrder::getMemberId,memberId);
+        wrapper.eq(MOrder::getOrderId, orderId);
+        wrapper.eq(MOrder::getMemberId, memberId);
         MOrder order = this.getOne(wrapper);
         ///修改订单的价格
         order.setTotalFee(order.getTotalFee().multiply(new BigDecimal(params.getLength())));
@@ -202,11 +212,12 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
         //更新订单的座位信息
         ArrayList<PlayHallSeat> playHallSeats = new ArrayList<>();
         PlayHallSeat playHallSeat = null;
-        int[][] list = params.getMsg();;
+        int[][] list = params.getMsg();
+        ;
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (list[i][j]==(2)) {
+                if (list[i][j] == (2)) {
                     playHallSeat = new PlayHallSeat();
                     playHallSeat.setSeatsRow(i + 1 + "");
                     playHallSeat.setSeatsColumn(j + 1 + "");
@@ -227,8 +238,8 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 playHallSeat = new PlayHallSeat();
-                playHallSeat.setSeatsRow(String.valueOf(i+1));
-                playHallSeat.setSeatsColumn(String.valueOf(j+1));
+                playHallSeat.setSeatsRow(String.valueOf(i + 1));
+                playHallSeat.setSeatsColumn(String.valueOf(j + 1));
                 playHallSeat.setStatus(String.valueOf(list1[i][j]));
                 seats1.add(playHallSeat);
             }
@@ -237,7 +248,7 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
         String s = JSON.toJSONString(seats1);
         moviePlayHall.setSeats(s);
 
-        moviePlayHallService.update(moviePlayHall,null);
+        moviePlayHallService.update(moviePlayHall, null);
 
         boolean update = this.update(order, null);
 
@@ -247,50 +258,32 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
     @Override
     public MOrder getOneById(String out_trade_id) {
         LambdaQueryWrapper<MOrder> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(MOrder::getOrderId,out_trade_id);
+        wrapper.eq(MOrder::getOrderId, out_trade_id);
         return this.getOne(wrapper);
     }
 
     private MOrder getOrder(String movieId, String jwtToken) {
-        //获取电影信息
-        MovieVo movieInfo = movieService.getMovieInfo(movieId);
-        //获取用户信息
-        LoginInfo loginInfo = memberService.getLoginInfo(jwtToken);
+        synchronized (this) {
+            //获取电影信息
+            MovieVo movieInfo = movieService.getMovieInfo(movieId);
+            //获取用户信息
+            LoginInfo loginInfo = memberService.getLoginInfo(jwtToken);
 
 
-        //创建订单
-        MOrder order = new MOrder();
-        order.setOrderId(String.valueOf(new IdWorker().nextId()));
-        order.setMovieId(movieId);
-        order.setMovieTitle(movieInfo.getTitle());
-        order.setMoviePoster(movieInfo.getPoster());
-        order.setTotalFee(movieInfo.getPrice());
-        order.setMemberId(jwtToken);
-        order.setMobile(loginInfo.getMobile());
-        order.setNickname(loginInfo.getNickname());
-        order.setStatus(0);
-        order.setPayType(1);
-        this.save(order);
-        return order;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(initializeHallSeats());
-    }
-    private static   String initializeHallSeats() {
-
-        ArrayList<PlayHallSeat> seats = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            int t = i+1;
-            for (int j = 0; j < 10; j++) {
-                PlayHallSeat seat = new PlayHallSeat();
-                seat.setSeatsRow(String.valueOf(t));
-                seat.setSeatsColumn(String.valueOf(j+1));
-                seat.setStatus("1");
-                seats.add(seat);
-            }
+            //创建订单
+            MOrder order = new MOrder();
+            order.setOrderId(String.valueOf(new IdWorker().nextId()));
+            order.setMovieId(movieId);
+            order.setMovieTitle(movieInfo.getTitle());
+            order.setMoviePoster(movieInfo.getPoster());
+            order.setTotalFee(movieInfo.getPrice());
+            order.setMemberId(jwtToken);
+            order.setMobile(loginInfo.getMobile());
+            order.setNickname(loginInfo.getNickname());
+            order.setStatus(0);
+            order.setPayType(1);
+            this.save(order);
+            return order;
         }
-        //将list数组转化为json字符串
-        return JSON.toJSONString(seats);
     }
 }

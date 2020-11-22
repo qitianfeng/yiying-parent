@@ -17,6 +17,7 @@ public class ConsumerOrder implements RocketMQListener<String> {
 
     @Reference
     MOrderService orderService;
+
     @Override
     public void onMessage(String s) {
 

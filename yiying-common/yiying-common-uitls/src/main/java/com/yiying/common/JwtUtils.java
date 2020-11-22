@@ -1,5 +1,6 @@
 package com.yiying.common;
 
+import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithmSpi;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -8,6 +9,8 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JwtUtils {
 
@@ -26,7 +29,10 @@ public class JwtUtils {
                 .claim("nickname", nickname)
                 .signWith(SignatureAlgorithm.HS256, APP_SECRET)
                 .compact();
+        HashMap<String, String> m = new HashMap<>();
+        for (Map.Entry<String, String> entry : m.entrySet()) {
 
+        }
         return JwtToken;
     }
 

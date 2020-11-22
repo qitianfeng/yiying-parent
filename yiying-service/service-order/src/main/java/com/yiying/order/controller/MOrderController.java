@@ -57,6 +57,14 @@ public class MOrderController {
         LambdaQueryWrapper<MOrder> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(MOrder::getOrderId, orderId);
         MOrder one = orderService.getOne(wrapper);
+        if(one.getStatus() == 1){
+            try {
+                throw new Exception("请不要重新下单，该订单已经被消费！");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return Result.error().data("msg", "请不要重复下单！");
+        }
         return Result.ok().data("order", one);
     }
 
