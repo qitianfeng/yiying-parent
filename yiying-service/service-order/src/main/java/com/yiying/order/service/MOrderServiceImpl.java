@@ -1,5 +1,7 @@
 package com.yiying.order.service;
 
+import cn.hutool.Hutool;
+import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -285,5 +287,9 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
             this.save(order);
             return order;
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(RandomUtil.randomString(30));
     }
 }
