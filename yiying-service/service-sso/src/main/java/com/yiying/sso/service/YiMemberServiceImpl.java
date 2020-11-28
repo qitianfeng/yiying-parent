@@ -95,10 +95,10 @@ public class YiMemberServiceImpl extends ServiceImpl<YiMemberMapper, YiMember> i
         }
 
         //获取Redis相应的验证码
-       /* String codeFromRedis = redisTemplate.opsForValue().get(registerVo.getMobile());
-        if (!code.equals(codeFromRedis)) {
+        String codeFromRedis = redisTemplate.opsForValue().get(registerVo.getMobile());
+        if (!code.equalsIgnoreCase(codeFromRedis)) {
             throw new QiException(20001,"验证码不正确！");
-        }*/
+        }
 
         YiMember yiMember = new YiMember();
         yiMember.setPassword(MD5.encrypt(registerVo.getPassword()));
