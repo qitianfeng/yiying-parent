@@ -20,7 +20,6 @@ import java.net.NetworkInterface;
  * <p>
  * 64位ID (42(毫秒)+5(机器ID)+5(业务编码)+12(重复累加))
  *
- * @author Polim
  */
 public class IdWorker {
     // 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）

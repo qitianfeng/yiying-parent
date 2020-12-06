@@ -9,7 +9,6 @@ import java.util.Random;
 /**
  * 获取随机数
  *
- * @author qianyi
  *
  */
 public class RandomUtil {
