@@ -21,7 +21,7 @@ import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -95,6 +95,7 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
      * @param movieInfo
      */
     @Override
+    @Transactional
     public String saveMovieInfo(MovieVo movieInfo) {
         MMovie mMovie = null;
         try {
@@ -139,7 +140,7 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
             moviePlayHall.setEndUseTime(defaultDateFormat.parse(format));
             moviePlayHall.setMovieId(mMovie.getMovieId());
 
-            String s = initializeHallSeats();
+            String s = initializeHallSeats(movieInfo.getSeat());
             //初始化座位信息
             moviePlayHall.setSeats(s);
 
@@ -161,17 +162,18 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
      * 初始化座位信息
      *
      * @return
+     * @param seat1
      */
-    private String initializeHallSeats() {
+    private String initializeHallSeats(int[][] seat1) {
 
         ArrayList<PlayHallSeat> seats = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < seat1.length; i++) {
             int t = i + 1;
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < seat1[i].length; j++) {
                 PlayHallSeat seat = new PlayHallSeat();
                 seat.setSeatsRow(String.valueOf(t));
                 seat.setSeatsColumn(String.valueOf(j + 1));
-                seat.setStatus("1");
+                seat.setStatus(seat1[i][j]+"");
                 seats.add(seat);
             }
         }
@@ -213,7 +215,7 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
         playHall.setEndUseTime(endUseTime);
         playHall.setMovieId(mMovie.getMovieId());
 
-        String s = initializeHallSeats();
+        String s = initializeHallSeats(movieInfo.getSeat());
         //初始化座位信息
         playHall.setSeats(s);
 
