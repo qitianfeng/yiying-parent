@@ -86,6 +86,7 @@ public class YiMemberServiceImpl extends ServiceImpl<YiMemberMapper, YiMember> i
     public void register(RegisterVo registerVo) {
         String code = registerVo.getCode();
         String mobile = registerVo.getMobile();
+        String mail = registerVo.getMail();
         //获取用户相关信息并作出相应判断
         LambdaQueryWrapper<YiMember> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(YiMember::getMobile, mobile);
@@ -95,7 +96,7 @@ public class YiMemberServiceImpl extends ServiceImpl<YiMemberMapper, YiMember> i
         }
 
         //获取Redis相应的验证码
-        String codeFromRedis = redisTemplate.opsForValue().get(registerVo.getMobile());
+        String codeFromRedis = redisTemplate.opsForValue().get(registerVo.getMail());
         if (!code.equalsIgnoreCase(codeFromRedis)) {
             throw new QiException(20001,"验证码不正确！");
         }

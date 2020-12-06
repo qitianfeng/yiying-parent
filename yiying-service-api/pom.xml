@@ -20,6 +20,8 @@
         <module>yiying-service-api-pay</module>
         <module>yiying-service-api-serach</module>
         <module>yiying-service-api-banner</module>
+        <module>yiying-service-api-code</module>
+        <module>service-test-api</module>
     </modules>
 
     <dependencies>

@@ -21,6 +21,7 @@ import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -52,7 +53,7 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
     @Autowired
     private MMovieVideoService mMovieVideoService;
 
-    @Reference
+    @Reference(check = false)
     private VodService vodService;
 
     private static SimpleDateFormat defaultDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -347,7 +348,7 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
      *
      * @return
      */
-    @CacheEvict
+    @CacheEvict(value = "movie",key = "TopEightMovie")
     @Override
     public List<MMovie> getTopEightMovie() {
         LambdaQueryWrapper<MMovie> wrapper = new LambdaQueryWrapper<>();
@@ -363,7 +364,6 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
      * @param movieId
      * @return
      */
-    @CacheEvict(key = "",value = "")
     @Override
     public MovieItemVo getMovieItemById(String movieId) {
         MMovie mMovie = baseMapper.selectById(movieId);
