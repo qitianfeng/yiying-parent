@@ -58,7 +58,7 @@ Seata<br/>
 | service-search               | dubbo服务       | 采用elasticsearch搜索引擎，实现对电影的条件检索              |
 | service-order                | dubbo服务       | 创建订单，删除订单                                           |
 | service-pay                  | dubbo服务       | 支付                                                         |
-| service-banner               | dubbo服务       | 广告的申请，展示，计费等功能                                 |
+| service-banner               | dubbo服务       | 广告的展示等功能                                 |
 | yiying-service-api           | jar包           | 各个服务创建各自的api工程                                    |
 
 
