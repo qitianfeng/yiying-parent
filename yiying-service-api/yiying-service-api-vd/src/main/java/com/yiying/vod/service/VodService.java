@@ -1,7 +1,8 @@
-package com.yiying;
+package com.yiying.vod.service;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.util.List;
 
@@ -21,4 +22,10 @@ public interface VodService {
     void removeVideo(String videoId);
 
     Boolean deleteVideoBatch(List<String> videoIds);
+
+
+    //上传视频
+    String uploadVideo(MultipartFile file);
+
+
 }
