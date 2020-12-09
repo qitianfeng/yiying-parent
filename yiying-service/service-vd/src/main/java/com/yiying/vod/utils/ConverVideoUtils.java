@@ -8,6 +8,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author zzf
+ * @version 1.0
+ * @date 2020/12/09 21:56
+ */
 @Data
 @Slf4j
 public class ConverVideoUtils {
