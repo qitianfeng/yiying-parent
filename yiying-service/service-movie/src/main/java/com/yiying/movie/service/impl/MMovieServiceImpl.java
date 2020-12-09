@@ -350,7 +350,7 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
      *
      * @return
      */
-    @CacheEvict(value = "movie",key = "TopEightMovie")
+    @Cacheable(value = "movie",key = "TopEightMovie")
     @Override
     public List<MMovie> getTopEightMovie() {
         LambdaQueryWrapper<MMovie> wrapper = new LambdaQueryWrapper<>();
