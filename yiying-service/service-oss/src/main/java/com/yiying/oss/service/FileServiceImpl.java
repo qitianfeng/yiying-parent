@@ -114,7 +114,7 @@ public class FileServiceImpl implements FileService {
             e.printStackTrace();
         } finally {
 //                reader.close();
-//            file1.delete();
+            file1.delete();
         }
 
 
