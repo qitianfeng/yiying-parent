@@ -94,13 +94,9 @@ public class FileServiceImpl implements FileService {
     @Override
     public String uploadToFastDfs(String fileStr) {
 
-//        MappedBiggerFileReader reader=null;
         FastDFSFile fastdfsfile = null;
         File file1 = null;
         try {
-//            reader = new MappedBiggerFileReader(fileStr, 65536);
-//            while (reader.read() != -1) ;
-
             file1 = new File(fileStr);
             MultipartFile file = getMultipartFile(file1);
             fastdfsfile = new FastDFSFile(
@@ -113,7 +109,6 @@ public class FileServiceImpl implements FileService {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-//                reader.close();
             file1.delete();
         }
 
