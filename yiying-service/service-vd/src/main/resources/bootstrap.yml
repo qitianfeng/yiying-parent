@@ -6,6 +6,10 @@ nacos:
   server:
     addr: 119.29.174.186:8848
 spring:
+  servlet:
+    multipart:
+      max-file-size: 2048MB
+      max-request-size: 2048MB
   application:
      name: service-vod
   main:

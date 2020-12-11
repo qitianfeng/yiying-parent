@@ -47,12 +47,12 @@ public class ConverVideoUtils {
 
 
         //检测本地是否存在
-        if (checkfile(sourceVideoPath)) {
+      /*  if (checkfile(sourceVideoPath)) {
             System.out.println(sourceVideoPath + "========该文件存在哟 ");
             return false;
         }
 
-
+*/
         //执行转码机制
         if (process(targetExtension, isDelSourseFile)) {
 
@@ -147,11 +147,63 @@ public class ConverVideoUtils {
             //获取进程的错误流
             final InputStream is2 = p.getErrorStream();
             //启动两个线程，一个线程负责读标准输出流，另一个负责读标准错误流
-            OutPutThread outPutThread = new OutPutThread(is1);
-            outPutThread.start();
+            new Thread() {
+                public void run() {
+                    BufferedReader br = new BufferedReader(
+                            new InputStreamReader(is1));
+                    try {
+                        String lineB = null;
+                        while ((lineB = br.readLine()) != null) {
+                            if (lineB != null) {
+                                System.out.println(lineB);    //打印mencoder转换过程代码-可注释
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-            OutPutErrorThread outPutErrorThread = new OutPutErrorThread(is2);
-            outPutErrorThread.start();
+                    //关闭流
+
+                    finally {
+                        try {
+                            is1.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                }
+            }.start();
+            new Thread() {
+                public void run() {
+                    BufferedReader br2 = new BufferedReader(
+                            new InputStreamReader(is2));
+                    try {
+                        String lineC = null;
+                        while ((lineC = br2.readLine()) != null) {
+                            if (lineC != null) {
+                                System.out.println(lineC);    //打印mencoder转换过程代码
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    //关闭
+
+                    finally {
+                        try {
+                            is2.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                }
+            }.start();
+
 
             // 等Mencoder进程转换结束，再调用ffmepg进程非常重要！！！
             p.waitFor();
@@ -287,8 +339,65 @@ public class ConverVideoUtils {
 
             final InputStream is1 = p.getInputStream();
             final InputStream is2 = p.getErrorStream();
-            new OutPutThread(is1).start();
-            new OutPutErrorThread(is2).start();
+
+            //启动两个线程，一个线程负责读标准输出流，另一个负责读标准错误流
+            new Thread() {
+                public void run() {
+                    BufferedReader br = new BufferedReader(
+                            new InputStreamReader(is1));
+                    try {
+                        String lineB = null;
+                        while ((lineB = br.readLine()) != null) {
+                            if (lineB != null) {
+                                System.out.println(lineB);    //打印mencoder转换过程代码-可注释
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    //关闭流
+
+                    finally {
+                        try {
+                            is1.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                }
+            }.start();
+            new Thread() {
+                public void run() {
+                    BufferedReader br2 = new BufferedReader(
+                            new InputStreamReader(is2));
+                    try {
+                        String lineC = null;
+                        while ((lineC = br2.readLine()) != null) {
+                            if (lineC != null) {
+                                System.out.println(lineC);    //打印mencoder转换过程代码
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    //关闭
+
+                    finally {
+                        try {
+                            is2.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                }
+            }.start();
+
 
             p.waitFor();        //进程等待机制，必须要有，否则不生成mp4！！！
             System.out.println("生成mp4视频为:" + videofolder + filerealname + ".mp4");

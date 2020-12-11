@@ -36,4 +36,12 @@ public class FileController {
         //返回r对象
         return Result.ok().message("文件上传成功").data("url", uploadUrl);
     }
+    @ApiOperation(value = "文件上传")
+    @PostMapping("upload1")
+    public Result upload1(
+            String str) {
+        String uploadUrl = fileService.uploadToFastDfs(str);
+        //返回r对象
+        return Result.ok().message("文件上传成功").data("url", uploadUrl);
+    }
 }

@@ -28,4 +28,6 @@ public interface MMovieVideoService extends IService<MMovieVideo> {
 
 
     MMovieVideo getByMovieId(String movieId);
+
+    String getPlayPath(String videoId);
 }

@@ -1,6 +1,5 @@
 package com.yiying.order.service;
 
-import cn.hutool.Hutool;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -87,7 +86,7 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
      * @return
      */
     @Override
-    public String queryByOutTradeNo(String out_trade_no) {
+    public HashMap<String, String> queryByOutTradeNo(String out_trade_no) {
 
         LambdaQueryWrapper<MOrder> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(MOrder::getOrderId, out_trade_no);
@@ -98,7 +97,11 @@ public class MOrderServiceImpl extends ServiceImpl<MOrderMapper, MOrder> impleme
                 return 0;
             }
         });*/
-        return order.getMovieId();
+        String memberId = order.getMemberId();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("memberId",memberId);
+        map.put("movieId",order.getMovieId());
+        return map;
     }
 
     /**

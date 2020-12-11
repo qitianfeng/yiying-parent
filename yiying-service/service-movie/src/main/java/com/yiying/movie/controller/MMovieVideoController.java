@@ -55,6 +55,12 @@ public class MMovieVideoController {
         return Result.ok().data("video", video);
     }
 
+    @GetMapping("getPlayPath/{videoId}")
+    public Result getPlayPath(@PathVariable String videoId) {
+
+        String path =  videoService.getPlayPath(videoId);
+        return Result.ok().data("path",path);
+    }
 
 
 }

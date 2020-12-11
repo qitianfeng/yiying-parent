@@ -29,5 +29,6 @@ public class MovieVo implements Serializable {
     private String[] date;
     private BigDecimal price;
     private String subjectHallId;
+    private int[][] seat;
 
 }

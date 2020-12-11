@@ -9,4 +9,10 @@ public interface FileService {
      * @return
      */
     String upload(MultipartFile file);
+    /**
+     * 输出文件到fastdfs
+     * @param fileStr
+     * @return
+     */
+    String uploadToFastDfs(String fileStr);
 }

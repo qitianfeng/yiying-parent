@@ -1,7 +1,7 @@
 package com.yiying.movie.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.yiying.VodService;
+import com.yiying.vod.service.VodService;
 import com.yiying.movie.entity.MMovie;
 import com.yiying.movie.entity.MMovieVideo;
 import com.yiying.movie.mapper.MMovieVideoMapper;
@@ -66,5 +66,14 @@ public class MMovieVideoServiceImpl extends ServiceImpl<MMovieVideoMapper, MMovi
         wrapper.eq(MMovieVideo::getMovieId, movieId);
         MMovieVideo mMovieVideo = baseMapper.selectOne(wrapper);
         return mMovieVideo;
+    }
+
+    @Override
+    public String getPlayPath(String videoId) {
+
+        LambdaQueryWrapper<MMovieVideo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(MMovieVideo::getVideoSourceId,videoId);
+        MMovieVideo one = this.getOne(wrapper);
+        return one.getVideoOriginalName();
     }
 }

@@ -4,7 +4,7 @@ server:
 
 nacos:
   server:
-    addr: www.qitianfeng.com:8848
+    addr: 119.29.174.186:8848
 
 spring:
   application:

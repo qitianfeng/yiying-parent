@@ -170,7 +170,9 @@ public class MPayLogController {
             //更新支付状态
             String memberId = JwtUtils.getMemberIdByJwtToken(request);
             payLogService.updateOrderStatus(map,memberId);
-            String movieId = orderService.queryByOutTradeNo(out_trade_no);
+            HashMap<String, String> hashMap = orderService.queryByOutTradeNo(out_trade_no);
+            String movieId = hashMap.get("movieId");
+            memberId = hashMap.get("memberId");
             modelMap.put("movieId", movieId);
 
             //发送异步消息，更新支付信息，更新订单状态

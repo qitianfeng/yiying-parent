@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yiying.VodService;
 import com.yiying.config.QiException;
 import com.yiying.movie.dto.PlayHallSeat;
 import com.yiying.movie.entity.*;
@@ -15,12 +14,14 @@ import com.yiying.movie.vo.MovieItemVo;
 import com.yiying.movie.vo.MoviePublishVo;
 import com.yiying.movie.vo.MovieQuery;
 import com.yiying.movie.vo.MovieVo;
+import com.yiying.vod.service.VodService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -350,7 +351,7 @@ public class MMovieServiceImpl extends ServiceImpl<MMovieMapper, MMovie> impleme
      *
      * @return
      */
-    @Cacheable(value = "movie",key = "TopEightMovie")
+    @Cacheable(value = "movie",key = "'TopEightMovie'")
     @Override
     public List<MMovie> getTopEightMovie() {
         LambdaQueryWrapper<MMovie> wrapper = new LambdaQueryWrapper<>();

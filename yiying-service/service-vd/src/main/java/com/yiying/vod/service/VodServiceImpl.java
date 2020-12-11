@@ -10,16 +10,14 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoResponse;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yiying.config.QiException;
-import com.yiying.vod.utils.AliyunVodSDKUtils;
-import com.yiying.vod.utils.ConstantPropertiesUtil;
-import com.yiying.vod.utils.ConverVideoUtils;
+import com.yiying.oss.service.FileService;
+import com.yiying.vod.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.*;
 import java.util.List;
@@ -27,6 +25,8 @@ import java.util.List;
 @Service
 @Slf4j
 public class VodServiceImpl implements VodService {
+    @Reference
+    private FileService fileService;
     /**
      * 上传视频文件到阿里云
      *
@@ -189,7 +189,7 @@ public class VodServiceImpl implements VodService {
             }
 
             //获取转码后的mp4文件名
-            String Mp4path = "D://Projectpicture/websiteimages/finshvideo/";
+            String Mp4path = "D:\\Projectpicture\\website\\finshvideo\\";
 //            String Mp4path = "/root/websiteimages/finshvideo/";
             filename2 = filename2 + ".mp4";
             String newVideopath = Mp4path + filename2;
@@ -224,9 +224,11 @@ public class VodServiceImpl implements VodService {
                 }
             }
             log.info("所有的临时视频文件删除成功");
+            String s = fileService.uploadToFastDfs(newVideopath);
+            return s;
             //将转换完成后的视频路径存储到数据库
             //返回已转码后的视频存放地址
-            return newVideopath;
+//            return newVideopath;
         } else {
             try {
                 throw new Exception();
@@ -236,7 +238,6 @@ public class VodServiceImpl implements VodService {
             return null;
         }
     }
-
 
 
     public static void run(String sourcePath) {

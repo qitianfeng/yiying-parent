@@ -1,16 +1,18 @@
 package com.yiying.vod.controller;
 
+import cn.hutool.core.util.RandomUtil;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthRequest;
 import com.aliyuncs.vod.model.v20170321.GetVideoPlayAuthResponse;
 import com.yiying.common.Result;
-import com.yiying.VodService;
+import com.yiying.vod.service.VodService;
 import com.yiying.vod.utils.AliyunVodSDKUtils;
 import com.yiying.vod.utils.ConstantPropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.util.List;
 
@@ -25,6 +27,11 @@ public class VodController {
     public Result uploadVideoToAliyun(MultipartFile file) {
         String vodId = vodService.uploadVideoToAliyun(file);
         return Result.ok().data("videoId", vodId);
+    }
+    @PostMapping("uploadVideo")
+    public Result uploadVideo(MultipartFile file) {
+        String newVideopath = vodService.uploadVideo(file);
+        return Result.ok().data("newVideopath", newVideopath).data("videoId", RandomUtil.randomString(16));
     }
 
     @DeleteMapping("{videoId}")

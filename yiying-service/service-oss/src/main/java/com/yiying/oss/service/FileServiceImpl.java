@@ -4,13 +4,18 @@ import cn.hutool.core.util.RandomUtil;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.CannedAccessControlList;
+import com.yiying.oss.util.FastDFSClient;
+import com.yiying.oss.util.FastDFSFile;
 import com.yiying.oss.utils.ConstantPropertiesUtil;
+import com.yiying.oss.utils.MappedBiggerFileReader;
 import org.apache.dubbo.config.annotation.Service;
+import org.apache.http.entity.ContentType;
 import org.joda.time.DateTime;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -61,7 +66,7 @@ public class FileServiceImpl implements FileService {
             String fileUrl = filePath + "/" + newFileName;
 
             //上传到阿里云oss中
-            ossClient.putObject(bucketName,fileUrl,inputStream);
+            ossClient.putObject(bucketName, fileUrl, inputStream);
 
 
             // 关闭OSSClient。
@@ -77,5 +82,58 @@ public class FileServiceImpl implements FileService {
 
 
         return urlUpload;
+    }
+
+
+    /**
+     * 输出文件到fastdfs
+     *
+     * @param fileStr
+     * @return
+     */
+    @Override
+    public String uploadToFastDfs(String fileStr) {
+
+//        MappedBiggerFileReader reader=null;
+        FastDFSFile fastdfsfile = null;
+        File file1 = null;
+        try {
+//            reader = new MappedBiggerFileReader(fileStr, 65536);
+//            while (reader.read() != -1) ;
+
+            file1 = new File(fileStr);
+            MultipartFile file = getMultipartFile(file1);
+            fastdfsfile = new FastDFSFile(
+                    file.getOriginalFilename(),//原来的文件名  1234.jpg
+                    file.getBytes(),//文件本身的字节数组
+                    StringUtils.getFilenameExtension(file.getOriginalFilename())
+            );
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+//                reader.close();
+//            file1.delete();
+        }
+
+
+        String[] upload = FastDFSClient.upload(fastdfsfile);
+
+
+        return FastDFSClient.getTrackerUrl() + "/" + upload[0] + "/" + upload[1];
+    }
+
+    private static MultipartFile getMultipartFile(File file) {
+        FileInputStream fileInputStream = null;
+        MultipartFile multipartFile = null;
+        try {
+            fileInputStream = new FileInputStream(file);
+            multipartFile = new MockMultipartFile(file.getName(), file.getName(),
+                    ContentType.APPLICATION_OCTET_STREAM.toString(), fileInputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return multipartFile;
     }
 }
