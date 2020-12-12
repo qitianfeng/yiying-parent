@@ -13,6 +13,7 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.config.annotation.Service;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
@@ -104,9 +105,12 @@ public class SearchServiceImpl implements SearchService {
             keyWord = searchMap.get("keywords");
             if (StringUtils.isEmpty(keyWord)) {
                 keyWord = "";
+                builder.withFilter(QueryBuilders.matchAllQuery()); //查询所有
             }
             if (!StringUtils.isEmpty(keyWord)) {
-                builder.withQuery(QueryBuilders.queryStringQuery(keyWord).field("title"));
+
+//                builder.withQuery(QueryBuilders.queryStringQuery(keyWord).field("title"));
+                builder.withQuery(QueryBuilders.wildcardQuery("title","*"+keyWord+"*"));
             }
         }
 
@@ -118,7 +122,7 @@ public class SearchServiceImpl implements SearchService {
          *
          */
 
-        builder.addAggregation(AggregationBuilders.terms("subjectSpec").field("subjectSpec.keyword"));
+        builder.addAggregation(AggregationBuilders.terms("subjectSpec").field("subjectSpec.keyword").size(500));
 
 
         //4.4 设置高亮的字段 设置前缀 和 后缀
@@ -184,17 +188,24 @@ public class SearchServiceImpl implements SearchService {
 
         builder.withPageable(PageRequest.of(pageNum - 1, pageSize));
 
-
         //排序操作
         //获取排序的字段 和要排序的规则
-        String sortField = searchMap.get("sortField");//price
+        //评分排序
+        String sortField = searchMap.get("sortField");//score
         String sortRule = searchMap.get("sortRule");//DESC ASC
         if (!StringUtils.isEmpty(sortField) && !StringUtils.isEmpty(sortRule)) {
             //执行排序
             builder.withSort(SortBuilders.fieldSort(sortField).order(sortRule.equalsIgnoreCase("ASC") ? SortOrder.ASC : SortOrder.DESC));
             //nativeSearchQueryBuilder.withSort(SortBuilders.fieldSort(sortField).order(SortOrder.valueOf(sortRule)));
         }
-
+        //价格排序
+        String sortPriceField = searchMap.get("sortPriceField");//score
+        String sortPriceRule = searchMap.get("sortPriceRule");//DESC ASC
+        if (!StringUtils.isEmpty(sortPriceField) && !StringUtils.isEmpty(sortPriceRule)) {
+            //执行排序
+            builder.withSort(SortBuilders.fieldSort(sortPriceField).order(sortPriceRule.equalsIgnoreCase("ASC") ? SortOrder.ASC : SortOrder.DESC));
+            //nativeSearchQueryBuilder.withSort(SortBuilders.fieldSort(sortField).order(SortOrder.valueOf(sortRule)));
+        }
         //5.构建查询对象(封装了查询的语法)
         NativeSearchQuery nativeSearchQuery = builder.build();
 
@@ -212,6 +223,7 @@ public class SearchServiceImpl implements SearchService {
 */
 //6.4 获取 规格的分组结果 列表数据map
         StringTerms stringTermsSpec = (StringTerms) page.getAggregation("subjectSpec");
+
         Map<String, Set<String>> specMap = getStringSetMap(stringTermsSpec);
         logger.info(searchMap);
         //分页参数
@@ -235,17 +247,6 @@ public class SearchServiceImpl implements SearchService {
         return resultMap;
     }
 
-    private List<String> getStringsCategoryList(StringTerms stringTermsCategory) {
-        List<String> categoryList = new ArrayList<>();
-        if (stringTermsCategory != null) {
-            for (StringTerms.Bucket bucket : stringTermsCategory.getBuckets()) {
-                String keyAsString = bucket.getKeyAsString();
-                System.out.println(keyAsString);//就是商品分类的数据
-                categoryList.add(keyAsString);
-            }
-        }
-        return categoryList;
-    }
 
     private Map<String, Set<String>> getStringSetMap(StringTerms stringTermsSpec) {
         //key :规格的名称

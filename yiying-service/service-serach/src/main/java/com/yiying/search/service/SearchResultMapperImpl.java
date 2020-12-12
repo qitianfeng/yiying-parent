@@ -26,7 +26,6 @@ public class SearchResultMapperImpl implements SearchResultMapper {
         if(response.getHits()==null || response.getHits().getTotalHits()<=0){
             return new AggregatedPageImpl<T>(content);
         }
-
         //搜索到的结果集
         for (SearchHit searchHit : response.getHits()) {
             String sourceAsString = searchHit.getSourceAsString();//每一个行的数据 json的 数据
