@@ -78,4 +78,3 @@ Seata<br/>
 需要配置文件信息的发送邮件  ---> qitiancode@163.com 
 
 
-后期嵌入实现基于netty的聊天系统
