@@ -42,8 +42,8 @@ Elasticsearch<br/>
 druid<br/>
 Docker<br/>
 mybatis generator<br/>
-Sentinel<br/>
-Seata<br/>
+<br/>
+<br/>
 
 # 后台项目模块说明及规划
 |                              |                 |                                                              |
