@@ -188,6 +188,7 @@ ffmpeg [options] [[infile options] -i infile]... {[outfile options] outfile}...
 ffmpeg -i video.avi　//查看本地的视频信息
  
 ffmpeg -i http://static.tripbe.com/videofiles/20121214/9533522808.f4v.mp4//查看远程http视频信息
+
 二、分离视频音频流
 
 ffmpeg -i input_file -vcodec copy -an output_file_video　　//分离视频流
@@ -197,6 +198,7 @@ ffmpeg -i input_file -acodec copy -vn output_file_audio　　//分离音频流
 ffmpeg -i input.mp4 -an output.mp4             //去掉视频中的音频
  
 ffmpeg -i test.avi -vcodec copy -an output.avi //去掉视频中的音频
+
 三、视频转码相关
 
 ffmpeg -i test.ts -acodec copy -vcodec copy -f mp4 output.mp4//ts视频流转mp4
