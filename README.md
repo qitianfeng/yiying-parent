@@ -1,6 +1,7 @@
 # 在线电影
  在线电影基于springboot2.2.1-RELEASE,nacos,SpringCloud Hoxton.SR1,spring-cloud-alibaba-2.1.0-RELEASE,Sentinel,Seata,dubbo来构建的微服务项目
  博客指导教程链接：https://www.cnblogs.com/windyCoding/p/14188414.html
+ 
 在线电影，实现在线观看电影以及在线购买电影票的主要功能等
 技术架构，spring boot spring cloud、nacos、dubbo、mybatis-plus,采用前后端分离方式，前端主要由vue开发工具开发，分为前台门户页面和后台管理页面，后台主要由Java的一些架构开发
 
